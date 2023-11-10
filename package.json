@@ -1,0 +1,35 @@
+{
+  "name": "lecode",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "generateNums.js",
+  "scripts": {
+    "build:prod": "node ./js/inherit/index.js",
+    "build:lang": "node ./lang/genLangXlsx.js",
+    "build:lang:ms": "node ./lang/translator.js",
+    "build:webKey": "node ./lang/buildExcel.js",
+    "build:translate": "node ./js/translate/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "cheerio": "1.0.0-rc.12",
+    "google-translate-api": "^2.3.0",
+    "request": "^2.88.2",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "bing-translate-api": "^2.9.0",
+    "bun": "^1.0.2",
+    "express": "^4.18.2",
+    "google-translate-open-api": "^1.3.7",
+    "node-xlsx": "^0.21.0",
+    "react": "^18.2.0",
+    "sass": "^1.66.1"
+  }
+}

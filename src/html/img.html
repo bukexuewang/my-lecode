@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <body>
+    <div>调试环境页面</div>
+    <img class="img" src="https://d1o25ngei6rml3.cloudfront.net/3_1/20210617/1623984250116289.png" alt="" />
+    <div></div>
+    <script>
+      const changeSrc = 'https://d1o25ngei6rml3.cloudfront.net/1_1/20210104/1609827739683141.png';
+      const img = document.querySelector('.img');
+
+      setTimeout(() => {
+        img.src = changeSrc;
+      }, 3000);
+      img.onerror = () => {
+        console.log('output-error');
+      };
+
+      img.onload = () => {
+        console.log('output-success');
+      };
+    </script>
+  </body>
+</html>

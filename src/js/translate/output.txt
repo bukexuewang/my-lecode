@@ -1,0 +1,3 @@
+Label options
+Turn off Other
+Turn off all

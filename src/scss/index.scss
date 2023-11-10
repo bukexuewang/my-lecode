@@ -1,0 +1,8 @@
+@mixin f-a-c {
+  display: flex;
+  align-items: center;
+}
+
+body {
+  @include f-a-c;
+}
