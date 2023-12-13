@@ -2,6 +2,13 @@ import fs from 'fs';
 import xlsx from 'node-xlsx';
 import { getGoogleCon, resolve, getLangCon } from './common.js';
 
+/**
+ * 检查两个字符串是否相同，在删除占位符之后。
+ * @function isSameStr
+ * @param {string} str1 第一个要比较的字符串。
+ * @param {string} str2 第二个要比较的字符串。
+ * @returns {boolean} 两个字符串是否在删除占位符之后相同。
+ */
 const isSameStr = (str1, str2) => {
   const fn = (v) => v.replace(/\{.?\}/g, '');
   return fn(str1) === fn(str2);

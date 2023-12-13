@@ -32,7 +32,7 @@ translateEvent(str);
 
 const promiseS = async (dir) => {
   const data = readXlsx(dir);
-  const langArr = ['en', 'zh-Hant', 'ar'];
+  const langArr = ['zh-Hant', 'en', 'vi', 'ru', 'ar', 'th', 'id', 'ms'];
   await Promise.all(
     data.map(async (item) => {
       if (!item[1]) return;
