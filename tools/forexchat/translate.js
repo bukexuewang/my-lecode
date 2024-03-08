@@ -1,23 +1,69 @@
 import fs from 'fs';
+import path from 'path';
 import xlsx from 'node-xlsx';
 
 import cn from './lang/cn.json';
-import { isObj, resolve } from './common';
+import { isObj, resolve } from './common.js';
 
 const jsonClone = (obj) => JSON.parse(JSON.stringify(obj));
 
+function deleteFilesInFolder(folderPath) {
+  const files = fs.readdirSync(folderPath);
+  // if (err) {
+  //   console.error(`Error reading folder ${folderPath}:`, err);
+  //   return;
+  // }
+
+  files.forEach((file) => {
+    const filePath = path.join(folderPath, file);
+
+    const stats = fs.statSync(filePath);
+
+    if (stats.isDirectory()) {
+      deleteFilesInFolder(filePath);
+    } else {
+      fs.unlinkSync(filePath);
+      console.log(`Deleted file ${filePath}`);
+    }
+  });
+}
+
+/**
+ *
+ * @param {string} source
+ * @param {string} target
+ */
+
+const slotReplaceTxt = (source, target) => {
+  if (!source) return target;
+  const reg = /\{.+?\}/gi;
+  const list = source.match(reg);
+  if (!list || !target) return target;
+  let i = 0;
+  return target.replace(reg, () => {
+    const val = list[i];
+    i++;
+    return val;
+  });
+};
+
 const syncFile = () => {
   const data = xlsx.parse(resolve('./files/output.xlsx'));
-  const sheet = data[0].data;
-  const titleArr = sheet.shift().slice(1);
   const langMap = new Map();
-  sheet.forEach((item) => {
-    const [key, ...rest] = item;
-    const obj = {};
-    titleArr.forEach((v, i) => {
-      obj[v] = rest[i];
+  let titleArr = ['cn', 'tw', 'en', 'vi', 'th', 'ru', 'ar', 'id', 'ms', 'es', 'jp', 'ko', 'pt', 'it', 'fr', 'tr'];
+  data.forEach((sheet, i) => {
+    const list = sheet.data;
+    if (!i) list.shift();
+    // if (!i) titleArr = list.shift().slice(1);
+    list.forEach((item) => {
+      const [key, ...rest] = item;
+      const obj = {};
+      const cn = rest[0];
+      titleArr.forEach((v, i) => {
+        obj[v] = i ? slotReplaceTxt(cn, rest[i]) : cn;
+      });
+      langMap.set(key, obj);
     });
-    langMap.set(key, obj);
   });
 
   /**
@@ -42,6 +88,8 @@ const syncFile = () => {
     });
     return obj;
   };
+
+  deleteFilesInFolder(resolve('./output'));
 
   titleArr.forEach((v) => {
     const sourceObj = jsonClone(cn);
