@@ -20,3 +20,8 @@ my_dict = {'a': 1, 'b': 2, 'c': 3}
 
 for key, value in my_dict.items():
    print(f"{key}: {value}")
+
+
+# 生成一段python脚本，打印出10层金字塔
+# Path: py/demo-2.py
+

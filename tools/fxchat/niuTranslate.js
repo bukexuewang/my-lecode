@@ -1,4 +1,5 @@
-import fs from 'fs';
+// 借用国际聊天室的翻译功能，处理单个文案的翻译
+import fs from 'fs-extra';
 import path from 'path';
 
 const langs =
@@ -6,10 +7,7 @@ const langs =
     ','
   );
 const arr = [
-  '全部,全部,All,Tất cả,ทั้งหมด,Все,الجميع,Semua,Semua,Todo,全て,모두,Todos,Tutto,Tous,Tüm',
-  '聊天室,聊天室,Chatroom,Phòng Chat,ห้องสนทนา,чат,غرفة الدردشة,ruang obrolan,Bilik Sembang,Sala de chat,チャットルーム,대화방,Sala de bate-papo,Chat,Tchat,Sohbet odası',
-  '群聊,群聊,Groups,Nhóm,กลุ่ม,Группы,مجموعات,Grup,Kumpulan,Grupos,グループ,여러 떼,Grupos,Gruppi,Groupes,Gruplar',
-  '好友,好友,Friends,Bạn,เพื่อน,Друзья,أصدقاء,Teman-teman,Kenalan,Amigos,友達,친구,Amigos,Amici,Amis,Arkadaşlar'
+  '移除成功,移除成功,Removed successfully,Cho phép thành công,ลบสำเร็จแล้ว,Звук успешно включен,تم إلغاء كتم الصوت بنجاح,Berhasil dihapus,Berjaya dikeluarkan,Silencio desactivado exitosamente,ミュートが正常に解除されました,음소거가 성공적으로 해제되었습니다.,Ativado com sucesso,Riattivato con successo,Réactivation du son avec succès,Yoksayma başarıyla açıldı'
 ].map((item) => item.split(','));
 
 const wTxt = () => {
@@ -28,7 +26,7 @@ const keys =
 const targetKeys =
   '简体[ss]繁体[ss]英语[ss]越南语[ss]泰语[ss]阿拉伯语[ss]马来语[ss]印尼语[ss]西班牙语[ss]日语[ss]韩语[ss]葡语[ss]意大利语[ss]法语[ss]土耳其语[ss]俄语';
 const langTxt =
-  '请输入...[ss]請輸入...[ss]Type here...[ss]Nhập nội dung...[ss]พิมพ์ที่นี่...[ss]Введите здесь...[ss]أكتب هنا...[ss]Ketik di sini...[ss]Taip di sini...[ss]Escriba aquí...[ss]ここに入力...[ss]여기에 입력하세요...[ss]Digite aqui...[ss]Digitare qui...[ss]Écrivez ici...[ss]Buraya yaz...';
+  '移除成功[ss]移除成功[ss]Removed successfully[ss]Cho phép thành công[ss]ลบสำเร็จแล้ว[ss]Звук успешно включен[ss]تم إلغاء كتم الصوت بنجاح[ss]Berhasil dihapus[ss]Berjaya dikeluarkan[ss]Silencio desactivado exitosamente[ss]ミュートが正常に解除されました[ss]음소거가 성공적으로 해제되었습니다.[ss]Ativado com sucesso[ss]Riattivato con successo[ss]Réactivation du son avec succès[ss]Yoksayma başarıyla açıldı';
 
 const parseTxt = (v) => v.split('[ss]');
 const sortCon = () => {
@@ -56,8 +54,7 @@ function testFn(val) {
 
 // console.log(classfn.toString());
 
-const str3 = `请输入...	請輸入...	Type here...	Nhập nội dung...	พิมพ์ที่นี่...	أكتب هنا...	Taip di sini...	Ketik di sini...	Escriba aquí...	ここに入力...	여기에 입력하세요...	Digite aqui...	Digitare qui...	Écrivez ici...	Buraya yaz...	Введите здесь...
-正在连接聊天室	正在連接聊天室	Connecting to chat room	Đang kết nối với phòng trò chuyện	กำลังเชื่อมต่อกับห้องสนทนา	  الاتصال بغرفة الدردشة	Menyambung ke bilik sembang	Menghubungkan ke ruang obrolan	Conexión a la sala de chat	チャットルームに接続中	채팅방에 연결 중	Conectando-se à sala de bate-papo	Connessione alla chat room	Connexion à la salle de discussion	Sohbet odasına bağlanılıyor	Подключение к чату`;
+const str3 = `移除成功	移除成功	Removed successfully	Cho phép thành công	ลบสำเร็จแล้ว	Звук успешно включен	تم إلغاء كتم الصوت بنجاح	Berhasil dihapus	Berjaya dikeluarkan	Silencio desactivado exitosamente	ミュートが正常に解除されました	음소거가 성공적으로 해제되었습니다.	Ativado com sucesso	Riattivato con successo	Réactivation du son avec succès	Yoksayma başarıyla açıldı									`;
 
 const list = str3.split('\n').map((item) => item.split('\t'));
 const sortArr3 = [0, 2, 1, 5, 9, 11, 12, 8, 10, 13, 3, 4, 7, 6, 15, 14];

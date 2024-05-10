@@ -49,3 +49,6 @@ export const getLangCon = () => {
   });
   return obj;
 };
+
+// ws协议
+export const wsProtocol = 'ws://';

@@ -1,0 +1,1 @@
+fxchat_common_file_assistant	文件小助手	文件助手	File Assistant	Trợ lý tập tin	ผู้ช่วยไฟล์	Файловый помощник	مساعد الملفات	Asisten berkas	Pembantu fail	asistente de archivos	ファイルアシスタント	파일 도우미	Assistente de arquivo	Assistente file	Assistant de fichiers	Dosya asistanı

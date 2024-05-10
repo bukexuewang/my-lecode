@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fse from 'fs-extra';
 import path from 'path';
 import xlsx from 'node-xlsx';
 
@@ -8,7 +8,7 @@ import { isObj, resolve } from './common.js';
 const jsonClone = (obj) => JSON.parse(JSON.stringify(obj));
 
 function deleteFilesInFolder(folderPath) {
-  const files = fs.readdirSync(folderPath);
+  const files = fse.readdirSync(folderPath);
   // if (err) {
   //   console.error(`Error reading folder ${folderPath}:`, err);
   //   return;
@@ -17,12 +17,12 @@ function deleteFilesInFolder(folderPath) {
   files.forEach((file) => {
     const filePath = path.join(folderPath, file);
 
-    const stats = fs.statSync(filePath);
+    const stats = fse.statSync(filePath);
 
     if (stats.isDirectory()) {
       deleteFilesInFolder(filePath);
     } else {
-      fs.unlinkSync(filePath);
+      fse.unlinkSync(filePath);
       console.log(`Deleted file ${filePath}`);
     }
   });
@@ -94,7 +94,7 @@ const syncFile = () => {
   titleArr.forEach((v) => {
     const sourceObj = jsonClone(cn);
     dfs(v, langMap, sourceObj, '');
-    fs.writeFileSync(resolve(`./output/${v}.json`), JSON.stringify(sourceObj), 'utf-8');
+    fse.outputJsonSync(resolve(`./output/${v}.json`), sourceObj, { spaces: 2 });
   });
 };
 syncFile();
